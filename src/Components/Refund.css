@@ -1,0 +1,36 @@
+.summary {
+    margin: 1rem 0;
+}
+
+.summary span {
+    display: inline-block;
+    width: 25%;
+}
+
+table {
+    width: 45rem;
+}
+
+th {
+    font-weight: normal;
+    text-align: left;
+    width: 5%;
+    border-bottom: solid black 1px;
+}
+
+.sum-row td{
+    border-top: solid black 1px;
+}
+
+.descr {
+    width: 10%;
+}
+
+.numeric {
+    text-align: right
+}
+
+.checkbox {
+    text-align: center;      
+}
+
