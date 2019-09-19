@@ -8,7 +8,7 @@
 }
 
 table {
-    width: 45rem;
+    width: 100%;
 }
 
 th {
@@ -28,6 +28,10 @@ th {
 
 .numeric {
     text-align: right
+}
+
+.numeric input {
+    text-align: right;
 }
 
 .checkbox {

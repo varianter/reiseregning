@@ -20,9 +20,10 @@ class Refund extends React.Component {
                     <td className="numeric">{formater.format(element.actualDiems)}</td>
                 </tr>)
         } )
-        
+        let hideClass = this.props.totalDiem === 0 ? "print-hidden" : "";
+
         return (
-            <div>
+            <div className={hideClass}>
                 <h2>Diett innenlands</h2>
                 <div className="summary" >
                     <span>Antall dager: {this.props.days} </span>

@@ -10,9 +10,9 @@ class Details extends React.Component {
             <form>
                 <div>
                     <h2>Personopplysninger</h2>
-                    <label className="name">
+                    <label className="long-input">
                             <span>Navn:</span>
-                            <input
+                            <input className="long-input"
                                 name="name"
                                 value={this.props.name}
                                 onChange={this.props.handleInputChange} />
@@ -21,9 +21,9 @@ class Details extends React.Component {
                 <div>
                     <h2>Spesifikasjon av reisen</h2>
                     <div>
-                        <label className="name">
+                        <label className="long-input">
                             <span>Kort beskrivelse:</span>
-                            <input
+                            <input className="long-input"
                                 name="description"
                                 value={this.props.description}
                                 onChange={this.props.handleInputChange} />
@@ -50,7 +50,7 @@ class Details extends React.Component {
                     </div>
                     <div>
                         <label>
-                            <span>Hjemkostdato:</span>                            
+                            <span>Hjemkomstdato:</span>                            
                             <input
                                 name="ariveDate"
                                 type="date"
@@ -59,7 +59,7 @@ class Details extends React.Component {
                         </label>
 
                         <label>
-                            <span>Hjemkost tidspunkt:</span>
+                            <span>Hjemkomst tidspunkt:</span>
                             <input
                                 name="ariveTime"
                                 type="time"

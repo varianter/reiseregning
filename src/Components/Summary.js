@@ -31,12 +31,18 @@ class Summary extends React.Component {
                             <td> </td>
                         <td className="numeric">{formater.format(this.props.mileage)}</td>
                         </tr>
+                        <tr>
+                            <td >Utlegg</td>
+                            <td> </td>                            
+                            <td> </td>
+                        <td className="numeric">{formater.format(this.props.mileage)}</td>
+                        </tr>
                     
                     <tr className="sum-row">
                             <td>Sum </td>
                             <td> </td>
                             <td> </td>
-                            <td className="numeric">{formater.format(this.props.mileage + this.props.diems)}</td>
+                            <td className="numeric">{formater.format(this.props.mileage + this.props.diems + this.props.expences)}</td>
                         </tr>
                     </tbody>
                 </table>

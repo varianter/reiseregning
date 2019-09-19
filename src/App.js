@@ -5,6 +5,7 @@ import Details from './Components/Details';
 import Refund from './Components/Refund';
 import Mileage from './Components/Mileage';
 import Summary from './Components/Summary';
+import Expences from './Components/Expences';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class App extends Component {
       hours: 0,
       perDiemDays: [], 
       totalDiem: 0,
-      mileage: {mileage:0,  rate: 3.5, amount:0, passenger: false}
+      mileage: {mileage:0,  rate: 3.5, amount:0, passenger: false},
+      expences : 0
 
     }
     
@@ -28,6 +30,7 @@ class App extends Component {
     this.handleMileageInputChange = this.handleMileageInputChange.bind(this);
     this.calclateDiems = this.calclateDiems.bind(this);
     this.calclate = this.calclate.bind(this);       
+    this.handleExpenceChange = this.handleExpenceChange.bind(this);
     
   }
 
@@ -61,6 +64,8 @@ class App extends Component {
     if (perDiemDays.length ===  0 ){
       perDiemDays.push({toDate: "Første dag", perDiem: singleDayPerDiem, actualDiems: singleDayPerDiem, breakfast:false,lunch:false,dinner:false});
     } 
+    debugger;
+    perDiemDays[0].perDiem = singleDayPerDiem;
     for (let i = perDiemDays.length -1 ; i < days; i++){
       let toDate = new moment(departDate).add(i+1,'days').format("DD.MM.YYYY");
       perDiemDays.push({toDate: toDate, perDiem: dayPerDiem, actualDiems: dayPerDiem, breakfast:false,lunch:false,dinner:false});
@@ -128,6 +133,10 @@ class App extends Component {
     
   }
 
+  handleExpenceChange(expences) {
+    this.setState({expences:expences});
+  }
+
   render() {
     return (
       <div className="container">
@@ -148,10 +157,17 @@ class App extends Component {
           <Mileage handleMileageInputChange={this.handleMileageInputChange}
                 mileage={this.state.mileage}                       
           />
+          <Expences handleExpenceChange={this.handleExpenceChange} 
+            expences={this.state.expences}
+            departDate={this.state.departDate}
+            ariveDate={this.state.ariveDate} 
+          />
+
 
           <Summary 
                 mileage={this.state.mileage.amount}
                 diems={this.state.totalDiem}
+                expences={this.state.expences}
           />
 
       </div>
