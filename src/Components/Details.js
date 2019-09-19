@@ -54,6 +54,7 @@ class Details extends React.Component {
                             <input
                                 name="ariveDate"
                                 type="date"
+                                min={this.props.departDate}
                                 value={this.props.ariveDate}
                                 onChange={this.props.handleInputChange} />
                         </label>

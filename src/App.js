@@ -46,16 +46,19 @@ class App extends Component {
     const singleDayPerDiemLong = 400;
     
     const departDate = moment(this.state.departDate + this.state.departTime,"YYYY-MM-DDhh:mm");
-    const ariveDate = moment(this.state.ariveDate + this.state.ariveTime,"YYYY-MM-DDhh:mm");     
+    let ariveDate = moment(this.state.ariveDate + this.state.ariveTime,"YYYY-MM-DDhh:mm");     
     
+    if (this.state.departDate > this.state.ariveDate) {
+      ariveDate = moment(this.state.departDate + this.state.ariveTime,"YYYY-MM-DDhh:mm");
+      this.setState({ariveDate: this.state.departDate});
+    }
+
     const days = ariveDate.diff(departDate,"days");
     const hours = ariveDate.diff(departDate,"hours")- 24*days;
     const overNigth = (days>0 ? "Ja": "Nei")        
 
-    
-    
-    let perDiemDays = this.state.perDiemDays.slice(0,days+1);
 
+    let perDiemDays = this.state.perDiemDays.slice(0,days+1);
     let singleDayPerDiem = 0;
   
     if (hours >= 6) singleDayPerDiem = singleDayPerDiemShort;
@@ -64,7 +67,7 @@ class App extends Component {
     if (perDiemDays.length ===  0 ){
       perDiemDays.push({toDate: "Første dag", perDiem: singleDayPerDiem, actualDiems: singleDayPerDiem, breakfast:false,lunch:false,dinner:false});
     } 
-    debugger;
+
     perDiemDays[0].perDiem = singleDayPerDiem;
     for (let i = perDiemDays.length -1 ; i < days; i++){
       let toDate = new moment(departDate).add(i+1,'days').format("DD.MM.YYYY");
@@ -75,7 +78,6 @@ class App extends Component {
   }
 
   calclateDiems() {
-    
     let sum = 0
     
     let perDiemDays = this.state.perDiemDays;
@@ -87,7 +89,6 @@ class App extends Component {
       sum += element.actualDiems;
     });
     this.setState({perDiemDays: perDiemDays,  totalDiem: sum});
-  
   }
 
 
@@ -95,6 +96,7 @@ class App extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+
 
     this.setState({
         [name]: value

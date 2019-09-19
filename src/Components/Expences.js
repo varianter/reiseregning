@@ -14,7 +14,7 @@ class Expences extends React.Component {
 
     onNewRowButtonClick() {
         let expences = this.state.expences;
-        expences.push({amountInclVAT:0, VAT:15, amountExclVAT:0 })
+        expences.push({amountInclVAT:0, VAT:15, amountVAT:0 })
         this.setState({expences:expences});
     }
 
@@ -27,8 +27,8 @@ class Expences extends React.Component {
     
         let expences = this.state.expences;
         expences[index][name]= value;
-        expences[index].amountExclVAT = expences[index].amountInclVAT/(100+expences[index].VAT)*100;
-
+        expences[index].amountVAT = parseInt(expences[index].amountInclVAT)/(100+parseInt(expences[index].VAT))*parseInt(expences[index].VAT);
+    
         let sum = 0;
         expences.forEach( (element) => {
             sum += 1.0 * element.amountInclVAT;
@@ -36,7 +36,7 @@ class Expences extends React.Component {
         this.props.handleExpenceChange(sum);
         this.setState({expences:expences});
         
-        }
+    }
 
 
 
@@ -48,11 +48,25 @@ class Expences extends React.Component {
         this.state.expences.forEach( (element, i) => {
             expenceRows.push(
                 <tr key={i}>
-                    <td><input type="date"/></td>
-                    <td ><input></input></td>
+                    <td><input min={this.props.departDate} defaultValue={this.props.departDate} type="date"/></td>
+                    <td>
+                    <select >
+                        <option value={1}>Flybiletter</option>
+                        <option value={2}>Tog/Buss</option>
+                        <option value={3}>Bompenger</option>
+                        <option value={4}>Taxi</option>                        
+                    </select>
+                    </td>
                     <td className="numeric"><input onChange={this.handleChange} name={i + "-amountInclVAT"} defaultValue={element.amountInclVAT}></input></td>
-                    <td className="numeric"><input onChange={this.handleChange} name={i + "-VAT"} defaultValue={element.VAT}></input></td>
-                    <td className="numeric">{formater.format(element.amountExclVAT)}</td>
+                    <td>
+                    <select className="numeric" onChange={this.handleChange} name={i + "-VAT"} value={element.VAT}>
+                        <option value={0}>0</option>
+                        <option value={12}>12</option>
+                        <option value={15}>15</option>
+                        <option value={25}>25</option>                        
+                    </select>
+                    </td>
+                    <td className="numeric">{formater.format(element.amountVAT)}</td>
                     <td className="numeric">{formater.format(element.amountInclVAT)}</td>
                 </tr>)
         } )
@@ -80,7 +94,7 @@ class Expences extends React.Component {
                         <th>Beskrivelse </th>
                         <th className="numeric">Inkl MVA</th>
                         <th className="numeric">% MVA</th>
-                        <th className="numeric">Eksl MVA</th>                    
+                        <th className="numeric">MVA</th>                    
                         <th className="numeric">Beløp</th>
                     </tr>
                 </thead>
@@ -99,7 +113,7 @@ class Expences extends React.Component {
 
         }
         
-        let hideClass = expenceRows.length===0 ? "print-hidden" : "";
+        let hideClass = this.props.expences === 0 ? "print-hidden" : "";
 
         return (
             <div className={hideClass}>

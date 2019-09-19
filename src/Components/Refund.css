@@ -7,6 +7,11 @@
     width: 25%;
 }
 
+select  {
+    width: 98%;
+    
+}
+
 table {
     width: 100%;
 }
@@ -27,7 +32,8 @@ th {
 }
 
 .numeric {
-    text-align: right
+    text-align: right;
+    text-align-last: right;
 }
 
 .numeric input {
