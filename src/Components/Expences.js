@@ -30,10 +30,17 @@ class Expences extends React.Component {
         expences[index].amountVAT = parseInt(expences[index].amountInclVAT)/(100+parseInt(expences[index].VAT))*parseInt(expences[index].VAT);
     
         let sum = 0;
-        expences.forEach( (element) => {
+        let vatList = {};
+        expences.forEach( (element, key) => {
             sum += 1.0 * element.amountInclVAT;
+            if (!vatList[expences[key].VAT]) {
+                vatList[expences[key].VAT]= 0;
+            }
+            vatList[expences[key].VAT] += expences[key].amountInclVAT;
+            
         });
-        this.props.handleExpenceChange(sum);
+
+        this.props.handleExpenceChange(sum, vatList);
         this.setState({expences:expences});
         
     }

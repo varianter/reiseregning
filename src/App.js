@@ -21,7 +21,8 @@ class App extends Component {
       perDiemDays: [], 
       totalDiem: 0,
       mileage: {mileage:0,  rate: 3.5, amount:0, passenger: false},
-      expences : 0
+      vatList : [],
+      expences: 0
 
     }
     
@@ -135,8 +136,8 @@ class App extends Component {
     
   }
 
-  handleExpenceChange(expences) {
-    this.setState({expences:expences});
+  handleExpenceChange(expences, vatList) {
+    this.setState({expences:expences, vatList: vatList});
   }
 
   render() {
@@ -164,11 +165,10 @@ class App extends Component {
             departDate={this.state.departDate}
             ariveDate={this.state.ariveDate} 
           />
-
-
           <Summary 
                 mileage={this.state.mileage.amount}
                 diems={this.state.totalDiem}
+                vatList={this.state.vatList}
                 expences={this.state.expences}
           />
 
