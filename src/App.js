@@ -11,10 +11,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departDate: "2019-09-11",
-      departTime: "07:00",
-      ariveDate: "2019-09-13",
-      ariveTime: "18:00",
+      departDate: "",
+      departTime: "",
+      ariveDate: "",
+      ariveTime: "",
       overNigth: "",
       days: 0,
       hours: 0,

@@ -54,7 +54,8 @@ class Expences extends React.Component {
                         <option value={1}>Flybiletter</option>
                         <option value={2}>Tog/Buss</option>
                         <option value={3}>Bompenger</option>
-                        <option value={4}>Taxi</option>                        
+                        <option value={4}>Taxi</option>        
+                        <option value={5}>Hotell</option>                        
                     </select>
                     </td>
                     <td className="numeric"><input onChange={this.handleChange} name={i + "-amountInclVAT"} defaultValue={element.amountInclVAT}></input></td>
