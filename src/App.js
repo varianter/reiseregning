@@ -106,19 +106,18 @@ class App extends Component {
   }
 
 
-  handleMileageInputChange(event) {
+  handleMileageInputChange(input) {
     
     const rate = 3.5;
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const value = input.value;
+    const name = input.name;
 
     let mileage = this.state.mileage;
     mileage[name] = value;
     mileage.rate = rate + (mileage.passenger ? 1 : 0);  
     mileage.amount = mileage.mileage * mileage.rate;
 
-    this.setState({mileage: mileage});   
+    this.setState({mileage});   
   }
 
 

@@ -8,6 +8,7 @@ class Mileage extends React.Component {
         let formater = new Intl.NumberFormat('no-BM', { style: 'currency' , currency: 'NOK'});
         let hideClass = this.props.mileage.amount === 0 ? "print-hidden" : "";
 
+        console.log(this.props.mileage)
         return (
             <div className={hideClass}>
                 <h2>Bruk av privat bil</h2>
@@ -23,8 +24,8 @@ class Mileage extends React.Component {
                     </thead>
                     <tbody>
                         <tr>
-                        <td ><input className="numeric" onChange={this.props.handleMileageInputChange} name="mileage" value={this.props.mileage.mileage} type="numeric"/></td>
-                        <td className="checkbox"><input onChange={this.props.handleMileageInputChange} name="passenger" value={this.props.mileage.passenger} type="checkbox"/></td>
+                        <td ><input className="numeric" onChange={(event) => this.props.handleMileageInputChange({ name: 'mileage', value: event.target.value})} name="mileage" value={this.props.mileage.mileage} type="numeric"/></td>
+                        <td className="checkbox"><input onChange={(event) => this.props.handleMileageInputChange({ name: 'passenger', value: event.target.checked})} name="passenger" value={this.props.mileage.passenger} type="checkbox"/></td>
                         <td className="numeric">{formater.format(this.props.mileage.rate)}</td>
                         <td className="numeric">{formater.format(this.props.mileage.amount)}</td>
                         </tr>
