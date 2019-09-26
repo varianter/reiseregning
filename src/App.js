@@ -143,7 +143,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <h1>Diett</h1>
+        <h1>Reiseregning</h1>
           <Details handleInputChange={this.handleInputChange}               
                   departDate={this.state.departDate}
                   departTime={this.state.departTime}
