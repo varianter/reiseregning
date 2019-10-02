@@ -11,11 +11,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departDate: "",
-      departTime: "07:00",
-      ariveDate: "",
-      ariveTime: "18:00",
-      overNigth: "",
+      departDate: new Date().setHours(6,0),
+      ariveDate: new Date().setHours(18,0),
+      overNight: "",
       days: 0,
       hours: 0,
       perDiemDays: [], 
@@ -26,10 +24,10 @@ class App extends Component {
 
     }
     
-    this.handleInputChange = this.handleInputChange.bind(this);        
+    this.handleDetailsChange = this.handleDetailsChange.bind(this);        
     this.handleFreeMealChange = this.handleFreeMealChange.bind(this);
     this.handleMileageInputChange = this.handleMileageInputChange.bind(this);
-    this.calclateDiems = this.calclateDiems.bind(this);
+    this.calculateDiems = this.calculateDiems.bind(this);
     this.calclate = this.calclate.bind(this);       
     this.handleExpenceChange = this.handleExpenceChange.bind(this);
     
@@ -46,17 +44,17 @@ class App extends Component {
     const singleDayPerDiemShort = 200;
     const singleDayPerDiemLong = 400;
     
-    const departDate = moment(this.state.departDate + this.state.departTime,"YYYY-MM-DDhh:mm");
-    let ariveDate = moment(this.state.ariveDate + this.state.ariveTime,"YYYY-MM-DDhh:mm");     
+    const departDate = moment(this.state.departDate);
+    let ariveDate = moment(this.state.ariveDate);     
     
     if (this.state.departDate > this.state.ariveDate) {
-      ariveDate = moment(this.state.departDate + this.state.ariveTime,"YYYY-MM-DDhh:mm");
+      ariveDate = moment(this.state.departDate);
       this.setState({ariveDate: this.state.departDate});
     }
 
     const days = ariveDate.diff(departDate,"days");
     const hours = ariveDate.diff(departDate,"hours")- 24*days;
-    const overNigth = (days>0 ? "Ja": "Nei")        
+    const overNight = (days>0 ? "Ja": "Nei")        
 
 
     let perDiemDays = this.state.perDiemDays.slice(0,days+1);
@@ -75,10 +73,10 @@ class App extends Component {
       perDiemDays.push({toDate: toDate, perDiem: dayPerDiem, actualDiems: dayPerDiem, breakfast:false,lunch:false,dinner:false});
     }
     
-    this.setState({days: days, hours: hours, overNigth: overNigth, perDiemDays:perDiemDays}, () => this.calclateDiems() ) 
+    this.setState({days, hours,  overNight, perDiemDays:perDiemDays}, () => this.calculateDiems() ) 
   }
 
-  calclateDiems() {
+  calculateDiems() {
     let sum = 0
     
     let perDiemDays = this.state.perDiemDays;
@@ -89,15 +87,11 @@ class App extends Component {
       if (element.dinner) element.actualDiems -= element.perDiem * .5;
       sum += element.actualDiems;
     });
-    this.setState({perDiemDays: perDiemDays,  totalDiem: sum});
+    this.setState({perDiemDays,  totalDiem: sum});
   }
 
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
+  handleDetailsChange(name, value) {
 
     this.setState({
         [name]: value
@@ -111,15 +105,15 @@ class App extends Component {
     
     const rate = 3.5;
     const target = event.target;
-    const value = target.value;
     const name = target.name;
-
+    const value = target.type !== "checkbox" ? target.value : target.checked; 
+    
     let mileage = this.state.mileage;
     mileage[name] = value;
     mileage.rate = rate + (mileage.passenger ? 1 : 0);  
     mileage.amount = mileage.mileage * mileage.rate;
 
-    this.setState({mileage: mileage});   
+    this.setState({mileage});   
   }
 
 
@@ -132,19 +126,19 @@ class App extends Component {
     let perDiemDays = this.state.perDiemDays;
     perDiemDays[index][name]= value;
 
-    this.setState({perDiemDays:perDiemDays}, () => this.calclateDiems());
+    this.setState({perDiemDays:perDiemDays}, () => this.calculateDiems());
     
   }
 
   handleExpenceChange(expences, vatList) {
-    this.setState({expences:expences, vatList: vatList});
+    this.setState({expences,  vatList});
   }
 
   render() {
     return (
       <div className="container">
         <h1>Reiseregning</h1>
-          <Details handleInputChange={this.handleInputChange}               
+          <Details handleDetailsChange={this.handleDetailsChange}               
                   departDate={this.state.departDate}
                   departTime={this.state.departTime}
                   ariveDate={this.state.ariveDate}
@@ -155,7 +149,7 @@ class App extends Component {
             totalDiem={this.state.totalDiem}
             days={this.state.days} 
             hours={this.state.hours} 
-            overNigth={this.state.overNigth} 
+            overNight={this.state.overNight} 
           />
           <Mileage handleMileageInputChange={this.handleMileageInputChange}
                 mileage={this.state.mileage}                       

@@ -1,6 +1,5 @@
 import React from 'react';
 import './Refund.css'
-import { isTerminatorless } from '@babel/types';
 
 class Summary extends React.Component {
 
@@ -24,18 +23,6 @@ class Summary extends React.Component {
              }    
         }
         
-
-
-        var user = {};
-
-        function setUsers(data) {
-            for (var k in data) {
-                if (data.hasOwnProperty(k)) {
-                   user[k] = data[k];
-                }
-            }
-        }
-
 
         
         return (

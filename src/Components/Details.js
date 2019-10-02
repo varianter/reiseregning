@@ -1,8 +1,32 @@
 import React from 'react';
+import DatePicker from "react-datepicker";  
+import "react-datepicker/dist/react-datepicker.css";
+ 
 import '../Components/Details.css';
 
 
 class Details extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onDateChange = this.onDateChange.bind(this);
+    
+    }
+    
+    onDateChange = ( name , date ) => {
+        
+        this.props.handleDetailsChange(name, date);
+    }
+
+    onInputChange (event){
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.props.handleDetailsChange(name, value);
+    }
 
     render() {        
         return (
@@ -15,7 +39,7 @@ class Details extends React.Component {
                             <input className="long-input"
                                 name="name"
                                 value={this.props.name}
-                                onChange={this.props.handleInputChange} />
+                                onChange={this.onInputChange} />
                         </label>
                 </div>
                 <div>
@@ -26,47 +50,32 @@ class Details extends React.Component {
                             <input className="long-input"
                                 name="description"
                                 value={this.props.description}
-                                onChange={this.props.handleInputChange} />
+                                onChange={this.onInputChange} />
                         </label>
                     </div>
                     <div>
                         <label>
                             <span>Avreisedato:</span>                            
-                            <input
-                                name="departDate"
-                                type="date"
-                                value={this.props.departDate}
-                                onChange={this.props.handleInputChange} />
-                        </label>
-
-                        <label>
-                            <span>Avreise tidspunkt:</span>                            
-                            <input
-                                name="departTime"
-                                type="time"
-                                value={this.props.departTime}
-                                onChange={this.props.handleInputChange} />
+                            <DatePicker
+                                selected={this.props.departDate}
+                                showTimeSelect
+                                timeFormat="HH:mm"                  
+                                dateFormat="dd.MM.yyyy HH:mm"      
+                                onChange={(value) => this.onDateChange("departDate", value)}/>
                         </label>
                     </div>
                     <div>
                         <label>
                             <span>Hjemkomstdato:</span>                            
-                            <input
-                                name="ariveDate"
-                                type="date"
-                                min={this.props.departDate}
-                                value={this.props.ariveDate}
-                                onChange={this.props.handleInputChange} />
-                        </label>
+                            <DatePicker
+                                selected={this.props.ariveDate}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                dateFormat="dd.MM.yyyy HH:mm"      
+                                onChange={(value) => this.onDateChange("ariveDate", value)}
+                                min={this.props.departDate}/>
+                       </label>
 
-                        <label>
-                            <span>Hjemkomst tidspunkt:</span>
-                            <input
-                                name="ariveTime"
-                                type="time"
-                                value={this.props.ariveTime}
-                                onChange={this.props.handleInputChange} />
-                        </label>
                     </div>
                 </div>
             </form>
