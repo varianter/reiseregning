@@ -3,7 +3,7 @@ import './Refund.css';
 
 class Refund extends React.Component {
   render() {
-    let formater = new Intl.NumberFormat('no-BM', {
+    let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
       currency: 'NOK'
     });
@@ -13,7 +13,7 @@ class Refund extends React.Component {
       perDiemsDays.push(
         <tr key={i}>
           <td>{element.toDate}</td>
-          <td className="numeric">{formater.format(element.perDiem)}</td>
+          <td className="numeric">{formatter.format(element.perDiem)}</td>
           <td className="checkbox">
             <input
               onChange={this.props.handleFreeMealChange}
@@ -38,7 +38,7 @@ class Refund extends React.Component {
               type="checkbox"
             />{' '}
           </td>
-          <td className="numeric">{formater.format(element.actualDiems)}</td>
+          <td className="numeric">{formatter.format(element.actualDiems)}</td>
         </tr>
       );
     });
@@ -50,7 +50,7 @@ class Refund extends React.Component {
         <div className="summary">
           <span>Antall dager: {this.props.days} </span>
           <span>Antall timer: {this.props.hours} </span>
-          <span>Overnatting: {this.props.overNigth}</span>
+          <span>Overnatting: {this.props.overNight}</span>
         </div>
 
         <table>
@@ -73,7 +73,7 @@ class Refund extends React.Component {
               <td> </td>
               <td> </td>
               <td className="numeric">
-                {formater.format(this.props.totalDiem)}
+                {formatter.format(this.props.totalDiem)}
               </td>
             </tr>
           </tbody>

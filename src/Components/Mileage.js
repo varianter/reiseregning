@@ -3,7 +3,7 @@ import './Refund.css';
 
 class Mileage extends React.Component {
   render() {
-    let formater = new Intl.NumberFormat('no-BM', {
+    let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
       currency: 'NOK'
     });
@@ -42,10 +42,10 @@ class Mileage extends React.Component {
                 />
               </td>
               <td className="numeric">
-                {formater.format(this.props.mileage.rate)}
+                {formatter.format(this.props.mileage.rate)}
               </td>
               <td className="numeric">
-                {formater.format(this.props.mileage.amount)}
+                {formatter.format(this.props.mileage.amount)}
               </td>
             </tr>
 
@@ -54,7 +54,7 @@ class Mileage extends React.Component {
               <td> </td>
               <td> </td>
               <td className="numeric">
-                {formater.format(this.props.mileage.amount)}
+                {formatter.format(this.props.mileage.amount)}
               </td>
             </tr>
           </tbody>

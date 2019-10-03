@@ -1,20 +1,20 @@
 import React from 'react';
 import './Refund.css';
 
-class Expences extends React.Component {
+class Expenses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expences: []
+      expenses: []
     };
     this.onNewRowButtonClick = this.onNewRowButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   onNewRowButtonClick() {
-    let expences = this.state.expences;
-    expences.push({ amountInclVAT: 0, VAT: 15, amountVAT: 0 });
-    this.setState({ expences: expences });
+    let expenses = this.state.expenses;
+    expenses.push({ amountInclVAT: 0, VAT: 15, amountVAT: 0 });
+    this.setState({ expenses: expenses });
   }
 
   handleChange(event) {
@@ -23,36 +23,36 @@ class Expences extends React.Component {
     const name = target.name.split('-')[1];
     const index = parseInt(target.name.split('-')[0]);
 
-    let expences = this.state.expences;
-    expences[index][name] = value;
-    expences[index].amountVAT =
-      (parseInt(expences[index].amountInclVAT) /
-        (100 + parseInt(expences[index].VAT))) *
-      parseInt(expences[index].VAT);
+    let expenses = this.state.expenses;
+    expenses[index][name] = value;
+    expenses[index].amountVAT =
+      (parseInt(expenses[index].amountInclVAT) /
+        (100 + parseInt(expenses[index].VAT))) *
+      parseInt(expenses[index].VAT);
 
     let sum = 0;
     let vatList = {};
-    expences.forEach((element, key) => {
+    expenses.forEach((element, key) => {
       sum += 1.0 * element.amountInclVAT;
-      if (!vatList[expences[key].VAT]) {
-        vatList[expences[key].VAT] = 0;
+      if (!vatList[expenses[key].VAT]) {
+        vatList[expenses[key].VAT] = 0;
       }
-      vatList[expences[key].VAT] += expences[key].amountInclVAT;
+      vatList[expenses[key].VAT] += expenses[key].amountInclVAT;
     });
 
-    this.props.handleExpenceChange(sum, vatList);
-    this.setState({ expences: expences });
+    this.props.handleExpenseChange(sum, vatList);
+    this.setState({ expenses: expenses });
   }
 
   render() {
-    let formater = new Intl.NumberFormat('no-BM', {
+    let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
       currency: 'NOK'
     });
 
-    let expenceRows = [];
+    let expenseRows = [];
 
-    this.state.expences.forEach((element, i) => {
+    this.state.expenses.forEach((element, i) => {
       expenceRows.push(
         <tr key={i}>
           <td>
@@ -91,8 +91,8 @@ class Expences extends React.Component {
               <option value={25}>25</option>
             </select>
           </td>
-          <td className="numeric">{formater.format(element.amountVAT)}</td>
-          <td className="numeric">{formater.format(element.amountInclVAT)}</td>
+          <td className="numeric">{formatter.format(element.amountVAT)}</td>
+          <td className="numeric">{formatter.format(element.amountInclVAT)}</td>
         </tr>
       );
     });
@@ -106,13 +106,13 @@ class Expences extends React.Component {
             <td> </td>
             <td> </td>
             <td> </td>
-            <td className="numeric">{formater.format(this.props.expences)}</td>
+            <td className="numeric">{formatter.format(this.props.expenses)}</td>
           </tr>
         </tbody>
       </table>
     );
 
-    if (expenceRows.length > 0) {
+    if (expenseRows.length > 0) {
       table = (
         <table>
           <thead>
@@ -126,7 +126,7 @@ class Expences extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {expenceRows}
+            {expenseRows}
             <tr className="sum-row">
               <td>Sum </td>
               <td> </td>
@@ -134,7 +134,7 @@ class Expences extends React.Component {
               <td> </td>
               <td> </td>
               <td className="numeric">
-                {formater.format(this.props.expences)}
+                {formatter.format(this.props.expenses)}
               </td>
             </tr>
           </tbody>
@@ -142,7 +142,7 @@ class Expences extends React.Component {
       );
     }
 
-    let hideClass = this.props.expences === 0 ? 'print-hidden' : '';
+    let hideClass = this.props.expenses === 0 ? 'print-hidden' : '';
 
     return (
       <div className={hideClass}>
@@ -154,4 +154,4 @@ class Expences extends React.Component {
   }
 }
 
-export default Expences;
+export default Expenses;

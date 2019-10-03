@@ -5,14 +5,14 @@ import Details from './Components/Details';
 import Refund from './Components/Refund';
 import Mileage from './Components/Mileage';
 import Summary from './Components/Summary';
-import Expences from './Components/Expences';
+import Expenses from './Components/Expenses';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       departDate: new Date().setHours(6, 0),
-      ariveDate: new Date().setHours(18, 0),
+      arrivalDate: new Date().setHours(18, 0),
       overNight: '',
       days: 0,
       hours: 0,
@@ -20,36 +20,36 @@ class App extends Component {
       totalDiem: 0,
       mileage: { mileage: 0, rate: 3.5, amount: 0, passenger: false },
       vatList: [],
-      expences: 0
+      expenses: 0
     };
 
     this.handleDetailsChange = this.handleDetailsChange.bind(this);
     this.handleFreeMealChange = this.handleFreeMealChange.bind(this);
     this.handleMileageInputChange = this.handleMileageInputChange.bind(this);
     this.calculateDiems = this.calculateDiems.bind(this);
-    this.calclate = this.calclate.bind(this);
-    this.handleExpenceChange = this.handleExpenceChange.bind(this);
+    this.calculate = this.calculate.bind(this);
+    this.handleExpenseChange = this.handleExpenseChange.bind(this);
   }
 
   componentDidMount() {
-    this.calclate();
+    this.calculate();
   }
 
-  calclate() {
+  calculate() {
     const dayPerDiem = 578;
     const singleDayPerDiemShort = 200;
     const singleDayPerDiemLong = 400;
 
     const departDate = moment(this.state.departDate);
-    let ariveDate = moment(this.state.ariveDate);
+    let arrivalDate = moment(this.state.arrivalDate);
 
-    if (this.state.departDate > this.state.ariveDate) {
-      ariveDate = moment(this.state.departDate);
-      this.setState({ ariveDate: this.state.departDate });
+    if (this.state.departDate > this.state.arrivalDate) {
+      arrivalDate = moment(this.state.departDate);
+      this.setState({ arrivalDate: this.state.departDate });
     }
 
-    const days = ariveDate.diff(departDate, 'days');
-    const hours = ariveDate.diff(departDate, 'hours') - 24 * days;
+    const days = arrivalDate.diff(departDate, 'days');
+    const hours = arrivalDate.diff(departDate, 'hours') - 24 * days;
     const overNight = days > 0 ? 'Ja' : 'Nei';
 
     let perDiemDays = this.state.perDiemDays.slice(0, days + 1);
@@ -108,7 +108,7 @@ class App extends Component {
       {
         [name]: value
       },
-      () => this.calclate()
+      () => this.calculate()
     );
   }
 
@@ -138,8 +138,8 @@ class App extends Component {
     this.setState({ perDiemDays: perDiemDays }, () => this.calculateDiems());
   }
 
-  handleExpenceChange(expences, vatList) {
-    this.setState({ expences, vatList });
+  handleExpenseChange(expenses, vatList) {
+    this.setState({ expenses, vatList });
   }
 
   render() {
@@ -150,8 +150,8 @@ class App extends Component {
           handleDetailsChange={this.handleDetailsChange}
           departDate={this.state.departDate}
           departTime={this.state.departTime}
-          ariveDate={this.state.ariveDate}
-          ariveTime={this.state.ariveTime}
+          arrivalDate={this.state.arrivalDate}
+          arrivalTime={this.state.arrivalTime}
         />
         <Refund
           handleFreeMealChange={this.handleFreeMealChange}
@@ -165,17 +165,17 @@ class App extends Component {
           handleMileageInputChange={this.handleMileageInputChange}
           mileage={this.state.mileage}
         />
-        <Expences
-          handleExpenceChange={this.handleExpenceChange}
-          expences={this.state.expences}
+        <Expenses
+          handleExpenseChange={this.handleExpenseChange}
+          expenses={this.state.expenses}
           departDate={this.state.departDate}
-          ariveDate={this.state.ariveDate}
+          arrivalDate={this.state.arrivalDate}
         />
         <Summary
           mileage={this.state.mileage.amount}
           diems={this.state.totalDiem}
           vatList={this.state.vatList}
-          expences={this.state.expences}
+          expenses={this.state.expenses}
         />
       </div>
     );

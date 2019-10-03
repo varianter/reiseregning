@@ -3,21 +3,21 @@ import './Refund.css';
 
 class Summary extends React.Component {
   render() {
-    let formater = new Intl.NumberFormat('no-BM', {
+    let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
       currency: 'NOK'
     });
-    let expenceRows = [];
+    let expenseRows = [];
 
     for (let key in this.props.vatList) {
       if (this.props.vatList.hasOwnProperty(key)) {
-        expenceRows.push(
+        expenseRows.push(
           <tr>
             <td>Utlegg</td>
             <td> </td>
             <td className="numeric"> {key} </td>
             <td className="numeric">
-              {formater.format(this.props.vatList[key])}
+              {formatter.format(this.props.vatList[key])}
             </td>
           </tr>
         );
@@ -42,23 +42,24 @@ class Summary extends React.Component {
               <td>Diett</td>
               <td> </td>
               <td className="numeric"> 0 </td>
-              <td className="numeric">{formater.format(this.props.diems)}</td>
+              <td className="numeric">{formatter.format(this.props.diems)}</td>
             </tr>
             <tr>
-              <td>Kilometergodgjørelse</td>
+              <td>Kilometergodtgjørelse</td>
               <td> </td>
               <td className="numeric"> 0 </td>
-              <td className="numeric">{formater.format(this.props.mileage)}</td>
+              <td className="numeric">
+                {formatter.format(this.props.mileage)}
+              </td>
             </tr>
-            {expenceRows}
-
+            {expenseRows}
             <tr className="sum-row">
               <td>Sum </td>
               <td> </td>
               <td> </td>
               <td className="numeric">
-                {formater.format(
-                  this.props.mileage + this.props.diems + this.props.expences
+                {formatter.format(
+                  this.props.mileage + this.props.diems + this.props.expenses
                 )}
               </td>
             </tr>
