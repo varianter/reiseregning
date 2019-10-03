@@ -1,5 +1,6 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import nb from 'date-fns/locale/nb'; // the locale you want
 import 'react-datepicker/dist/react-datepicker.css';
 
 import '../Components/Details.css';
@@ -25,6 +26,7 @@ class Details extends React.Component {
   }
 
   render() {
+    registerLocale('nb', nb);
     return (
       <form>
         <div>
@@ -60,6 +62,8 @@ class Details extends React.Component {
                 showTimeSelect
                 timeFormat="HH:mm"
                 dateFormat="dd.MM.yyyy HH:mm"
+                locale="nb"
+                timeCaption="Tid"
                 onChange={value => this.onDateChange('departDate', value)}
               />
             </label>
@@ -68,11 +72,13 @@ class Details extends React.Component {
             <label>
               <span>Hjemkomstdato:</span>
               <DatePicker
-                selected={this.props.ariveDate}
+                selected={this.props.arrivalDate}
                 showTimeSelect
                 timeFormat="HH:mm"
+                locale="nb"
+                timeCaption="Tid"
                 dateFormat="dd.MM.yyyy HH:mm"
-                onChange={value => this.onDateChange('ariveDate', value)}
+                onChange={value => this.onDateChange('arrivalDate', value)}
                 min={this.props.departDate}
               />
             </label>

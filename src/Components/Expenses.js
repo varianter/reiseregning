@@ -1,11 +1,14 @@
 import React from 'react';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import nb from 'date-fns/locale/nb'; // the locale you want
 import './Refund.css';
 
 class Expenses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenses: []
+      expenses: [],
+      expenseDate: new Date()
     };
     this.onNewRowButtonClick = this.onNewRowButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -52,14 +55,18 @@ class Expenses extends React.Component {
 
     let expenseRows = [];
 
+    registerLocale('nb', nb);
+
     this.state.expenses.forEach((element, i) => {
-      expenceRows.push(
+      expenseRows.push(
         <tr key={i}>
           <td>
-            <input
-              min={this.props.departDate}
-              defaultValue={this.props.departDate}
-              type="date"
+            <DatePicker
+              min={this.state.expenseDate}
+              selected={this.state.expenseDate}
+              locale="nb"
+              dateFormat="dd.MM.yyyy"
+              onChange={date => this.setState({ expenseDate: date })}
             />
           </td>
           <td>
