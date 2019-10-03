@@ -47,7 +47,7 @@ class Expenses extends React.Component {
       if (!vatList[expenses[key].VAT]) {
         vatList[expenses[key].VAT] = 0;
       }
-      vatList[expenses[key].VAT] += expenses[key].amountInclVAT;
+      vatList[expenses[key].VAT] += parseFloat(expenses[key].amountInclVAT);
     });
 
     this.props.handleExpenseChange(sum, vatList);
@@ -77,6 +77,7 @@ class Expenses extends React.Component {
           <td>
             <DatePicker
               minDate={this.props.arrivalDate}
+              placeholderText="Velg dato"
               selected={this.state[i + '-expenseDate']}
               locale="nb"
               dateFormat="dd.MM.yyyy"
