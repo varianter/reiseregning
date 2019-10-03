@@ -19,7 +19,7 @@ class App extends Component {
       perDiemDays: [],
       totalDiem: 0,
       mileage: { mileage: 0, rate: 3.5, amount: 0, passenger: false },
-      vatList: [],
+      vatList: {},
       expenses: 0
     };
 
@@ -144,40 +144,45 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <h1>Reiseregning</h1>
-        <Details
-          handleDetailsChange={this.handleDetailsChange}
-          departDate={this.state.departDate}
-          departTime={this.state.departTime}
-          arrivalDate={this.state.arrivalDate}
-          arrivalTime={this.state.arrivalTime}
-        />
-        <Refund
-          handleFreeMealChange={this.handleFreeMealChange}
-          perDiemDays={this.state.perDiemDays}
-          totalDiem={this.state.totalDiem}
-          days={this.state.days}
-          hours={this.state.hours}
-          overNight={this.state.overNight}
-        />
-        <Mileage
-          handleMileageInputChange={this.handleMileageInputChange}
-          mileage={this.state.mileage}
-        />
-        <Expenses
-          handleExpenseChange={this.handleExpenseChange}
-          expenses={this.state.expenses}
-          departDate={this.state.departDate}
-          arrivalDate={this.state.arrivalDate}
-        />
-        <Summary
-          mileage={this.state.mileage.amount}
-          diems={this.state.totalDiem}
-          vatList={this.state.vatList}
-          expenses={this.state.expenses}
-        />
-      </div>
+      <>
+        <div className="container">
+          <h1>Reiseregning</h1>
+          <Details
+            handleDetailsChange={this.handleDetailsChange}
+            departDate={this.state.departDate}
+            departTime={this.state.departTime}
+            arrivalDate={this.state.arrivalDate}
+            arrivalTime={this.state.arrivalTime}
+          />
+          <Refund
+            handleFreeMealChange={this.handleFreeMealChange}
+            perDiemDays={this.state.perDiemDays}
+            totalDiem={this.state.totalDiem}
+            days={this.state.days}
+            hours={this.state.hours}
+            overNight={this.state.overNight}
+          />
+          <Mileage
+            handleMileageInputChange={this.handleMileageInputChange}
+            mileage={this.state.mileage}
+          />
+          <Expenses
+            handleExpenseChange={this.handleExpenseChange}
+            expenses={this.state.expenses}
+            departDate={this.state.departDate}
+            arrivalDate={this.state.arrivalDate}
+          />
+          <Summary
+            mileage={this.state.mileage.amount}
+            diems={this.state.totalDiem}
+            vatList={this.state.vatList}
+            expenses={this.state.expenses}
+          />
+        </div>
+        <button className="saveButton" onClick={() => window.print()}>
+          Lagre
+        </button>
+      </>
     );
   }
 }

@@ -30,7 +30,7 @@ class Summary extends React.Component {
 
         <table>
           <thead>
-            <tr>
+            <tr className="header-row">
               <th className="descr">Beskrivelse </th>
               <th></th>
               <th className="numeric">% MVA</th>

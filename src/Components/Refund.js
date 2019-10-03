@@ -55,7 +55,7 @@ class Refund extends React.Component {
 
         <table>
           <thead>
-            <tr>
+            <tr className="header-row">
               <th className="descr">Beskrivelse </th>
               <th className="numeric">Sats </th>
               <th className="checkbox">Dekt frokost </th>

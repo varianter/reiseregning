@@ -10,6 +10,7 @@ class Expenses extends React.Component {
       expenses: []
     };
     this.onNewRowButtonClick = this.onNewRowButtonClick.bind(this);
+    this.onDeleteRowButtonClick = this.onDeleteRowButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
   }
@@ -17,6 +18,12 @@ class Expenses extends React.Component {
   onNewRowButtonClick() {
     let expenses = this.state.expenses;
     expenses.push({ amountInclVAT: 0, VAT: 15, amountVAT: 0 });
+    this.setState({ expenses: expenses });
+  }
+
+  onDeleteRowButtonClick() {
+    let expenses = this.state.expenses;
+    expenses.pop();
     this.setState({ expenses: expenses });
   }
 
@@ -130,7 +137,7 @@ class Expenses extends React.Component {
       table = (
         <table>
           <thead>
-            <tr>
+            <tr className="header-row">
               <th>Dato </th>
               <th>Beskrivelse </th>
               <th className="numeric">Inkl MVA</th>
@@ -162,6 +169,9 @@ class Expenses extends React.Component {
       <div className={hideClass}>
         <h2>Utlegg</h2>
         <button onClick={this.onNewRowButtonClick}>Nytt utlegg</button>
+        <button onClick={this.onDeleteRowButtonClick}>
+          Fjern siste utlegg
+        </button>
         {table}
       </div>
     );

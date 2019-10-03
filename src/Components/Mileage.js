@@ -15,7 +15,7 @@ class Mileage extends React.Component {
 
         <table>
           <thead>
-            <tr>
+            <tr className="header-row">
               <th className="descr">Antall kilometer </th>
               <th className="checkbox">Passasjer </th>
               <th className="numeric">Sats </th>
