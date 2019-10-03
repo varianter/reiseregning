@@ -79,7 +79,7 @@ class Details extends React.Component {
                 timeCaption="Tid"
                 dateFormat="dd.MM.yyyy HH:mm"
                 onChange={value => this.onDateChange('arrivalDate', value)}
-                min={this.props.departDate}
+                minDate={this.props.departDate}
               />
             </label>
           </div>

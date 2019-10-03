@@ -7,11 +7,11 @@ class Expenses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenses: [],
-      expenseDate: new Date()
+      expenses: []
     };
     this.onNewRowButtonClick = this.onNewRowButtonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   onNewRowButtonClick() {
@@ -47,6 +47,13 @@ class Expenses extends React.Component {
     this.setState({ expenses: expenses });
   }
 
+  handleDateChange(date, i) {
+    const stateName = `${i}-expenseDate`;
+    const stateObj = {};
+    stateObj[stateName] = date;
+    this.setState(stateObj);
+  }
+
   render() {
     let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
@@ -62,11 +69,11 @@ class Expenses extends React.Component {
         <tr key={i}>
           <td>
             <DatePicker
-              min={this.state.expenseDate}
-              selected={this.state.expenseDate}
+              minDate={this.props.arrivalDate}
+              selected={this.state[i + '-expenseDate']}
               locale="nb"
               dateFormat="dd.MM.yyyy"
-              onChange={date => this.setState({ expenseDate: date })}
+              onChange={date => this.handleDateChange(date, i)}
             />
           </td>
           <td>
