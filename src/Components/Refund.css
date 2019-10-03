@@ -1,46 +1,44 @@
 .summary {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .summary span {
-    display: inline-block;
-    width: 25%;
+  display: inline-block;
+  width: 25%;
 }
 
-select  {
-    width: 98%;
-    
+select {
+  width: 98%;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 th {
-    font-weight: normal;
-    text-align: left;
-    width: 5%;
-    border-bottom: solid black 1px;
+  font-weight: normal;
+  text-align: left;
+  width: 5%;
+  border-bottom: solid black 1px;
 }
 
-.sum-row td{
-    border-top: solid black 1px;
+.sum-row td {
+  border-top: solid black 1px;
 }
 
 .descr {
-    width: 10%;
+  width: 10%;
 }
 
 .numeric {
-    text-align: right;
-    text-align-last: right;
+  text-align: right;
+  text-align-last: right;
 }
 
 .numeric input {
-    text-align: right;
+  text-align: right;
 }
 
 .checkbox {
-    text-align: center;      
+  text-align: center;
 }
-
