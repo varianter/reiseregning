@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -16,4 +15,45 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.container {
+  width: 50rem;
+}
+
+.saveButton {
+  display: none;
+}
+
+@media screen {
+  .container {
+    margin: auto;
+    border: 1px solid black;
+    padding: 0.5rem;
+  }
+
+  .saveButton {
+    display: block;
+    padding: 0.5rem;
+    margin: 1rem auto;
+
+    background: #03dac6;
+    border-radius: 0.2rem;
+    box-shadow: 0.3rem 0.3rem 0 #ff0166;
+    color: #222;
+    font-size: 2rem;
+    font-weight: 800;
+    border: 0;
+
+    transition: box-shadow 200ms ease-in;
+  }
+  .saveButton:hover {
+    box-shadow: 0.5rem 0.5rem 0 #ff0166;
+  }
+}
+
+@media print {
+  @page {
+    margin: 2rem;
+  }
 }
