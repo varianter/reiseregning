@@ -67,8 +67,6 @@ class Details extends React.Component {
                 onChange={value => this.onDateChange('departDate', value)}
               />
             </label>
-          </div>
-          <div>
             <label>
               <span>Hjemkomstdato:</span>
               <DatePicker

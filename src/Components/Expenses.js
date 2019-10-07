@@ -61,6 +61,24 @@ class Expenses extends React.Component {
     this.setState(stateObj);
   }
 
+  handleButtonClick(i) {
+    let expenses = this.state.expenses;
+    expenses[i]['route'] = "Står på kvitteringen";
+    this.setState({ expenses });
+  }
+
+  handleTypeChange(event, i) {
+    let expenses = this.state.expenses;
+    let value = event.target.value;
+    if (value === "4" || value === "2") {
+      expenses[i]['need-route'] = true;
+    } else {
+      expenses[i]['need-route'] = false;
+    }
+    
+    this.setState({ expenses });
+  }
+
   render() {
     let formatter = new Intl.NumberFormat('no-BM', {
       style: 'currency',
@@ -71,7 +89,25 @@ class Expenses extends React.Component {
 
     registerLocale('nb', nb);
 
+
+
     this.state.expenses.forEach((element, i) => {
+      let route = <span></span>;
+      if (element['need-route']) {
+        
+        route = 
+        <span className>
+          <button className="print-hidden"
+              type="checkbox"
+              onClick={() => this.handleButtonClick(i)}>
+          </button>
+          <input
+              defaultValue={element.route}>
+          </input>
+        </span>
+      }
+
+
       expenseRows.push(
         <tr key={i}>
           <td>
@@ -85,7 +121,7 @@ class Expenses extends React.Component {
             />
           </td>
           <td>
-            <select>
+            <select onChange={(value) => this.handleTypeChange(value, i)}>
               <option value={1}>Flybiletter</option>
               <option value={2}>Tog/Buss</option>
               <option value={3}>Bompenger</option>
@@ -93,12 +129,8 @@ class Expenses extends React.Component {
               <option value={5}>Hotell</option>
             </select>
           </td>
-          <td className="numeric">
-            <input
-              onChange={this.handleChange}
-              name={i + '-amountInclVAT'}
-              defaultValue={element.amountInclVAT}
-            ></input>
+          <td>
+            {route}
           </td>
           <td>
             <select
@@ -113,8 +145,12 @@ class Expenses extends React.Component {
               <option value={25}>25</option>
             </select>
           </td>
-          <td className="numeric">{formatter.format(element.amountVAT)}</td>
-          <td className="numeric">{formatter.format(element.amountInclVAT)}</td>
+          <td className="numeric">
+            <input
+              onChange={this.handleChange}
+              name={i + '-amountInclVAT'}
+            ></input>
+          </td>
         </tr>
       );
     });
@@ -124,7 +160,6 @@ class Expenses extends React.Component {
         <tbody>
           <tr className="sum-row">
             <td>Sum </td>
-            <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -140,10 +175,9 @@ class Expenses extends React.Component {
           <thead>
             <tr className="header-row">
               <th>Dato </th>
-              <th>Beskrivelse </th>
-              <th className="numeric">Inkl MVA</th>
+              <th>Type </th>
+              <th>Fra og til </th>
               <th className="numeric">% MVA</th>
-              <th className="numeric">MVA</th>
               <th className="numeric">Beløp</th>
             </tr>
           </thead>
@@ -151,7 +185,6 @@ class Expenses extends React.Component {
             {expenseRows}
             <tr className="sum-row">
               <td>Sum </td>
-              <td> </td>
               <td> </td>
               <td> </td>
               <td> </td>
