@@ -59,7 +59,7 @@ class Refund extends React.Component {
               <th className="descr">Beskrivelse </th>
               <th className="numeric">Sats </th>
               <th className="checkbox">Dekt frokost </th>
-              <th className="checkbox">Dekt middag </th>
+              <th className="checkbox">Dekt lunsj </th>
               <th className="checkbox">Dekt middag </th>
               <th className="numeric">Beløp</th>
             </tr>
