@@ -140,6 +140,7 @@ class Expenses extends React.Component {
               value={element.VAT}
             >
               <option value={0}>0</option>
+              <option value={6}>6</option>
               <option value={12}>12</option>
               <option value={15}>15</option>
               <option value={25}>25</option>
