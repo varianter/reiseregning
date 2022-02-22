@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   calculate() {
-    const dayPerDiem = 609;
+    const dayPerDiem = 617;
     const singleDayPerDiemShort = 200;
     const singleDayPerDiemLong = 400;
 
