@@ -17,7 +17,7 @@ class Expenses extends React.Component {
 
   onNewRowButtonClick() {
     let expenses = this.state.expenses;
-    expenses.push({ amountInclVAT: 0, VAT: 15, amountVAT: 0 });
+    expenses.push({ amountInclVAT: 0, VAT: 12, amountVAT: 0 });
     this.setState({ expenses: expenses });
   }
 
