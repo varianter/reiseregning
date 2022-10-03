@@ -17,7 +17,7 @@ class Expenses extends React.Component {
 
   onNewRowButtonClick() {
     let expenses = this.state.expenses;
-    expenses.push({ amountInclVAT: 0, VAT: 15, amountVAT: 0 });
+    expenses.push({ amountInclVAT: 0, VAT: 12, amountVAT: 0 });
     this.setState({ expenses: expenses });
   }
 
@@ -127,6 +127,7 @@ class Expenses extends React.Component {
               <option value={3}>Bompenger</option>
               <option value={4}>Taxi</option>
               <option value={5}>Hotell</option>
+              <option value={6}>Parkering</option>
             </select>
           </td>
           <td>
