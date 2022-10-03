@@ -127,6 +127,7 @@ class Expenses extends React.Component {
               <option value={3}>Bompenger</option>
               <option value={4}>Taxi</option>
               <option value={5}>Hotell</option>
+              <option value={5}>Parkering</option>
             </select>
           </td>
           <td>
