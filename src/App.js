@@ -37,9 +37,9 @@ class App extends Component {
   }
 
   calculate() {
-    const dayPerDiem = 617;
-    const singleDayPerDiemShort = 200;
-    const singleDayPerDiemLong = 400;
+    const dayPerDiem = 637;
+    const singleDayPerDiemShort = 0;
+    const singleDayPerDiemLong = 342;
 
     const departDate = moment(this.state.departDate);
     let arrivalDate = moment(this.state.arrivalDate);
