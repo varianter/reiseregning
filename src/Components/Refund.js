@@ -50,7 +50,15 @@ class Refund extends React.Component {
         <div className="summary">
           <span>Antall dager: {this.props.days} </span>
           <span>Antall timer: {this.props.hours} </span>
-          <span>Overnatting: {this.props.overNight}</span>
+          <span>Overnatting:
+           <input
+              onChange={this.props.handleOverNightToggle}
+              name={'overnight'}
+              value={this.props.overNight}
+              checked={this.props.overNight}
+              type="checkbox"
+            />
+          </span>
         </div>
 
         <table>
