@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "./App.css";
 import moment from "moment";
 import Details from "./Components/Details";
@@ -6,12 +6,13 @@ import Refund from "./Components/Refund";
 import Mileage from "./Components/Mileage";
 import Summary from "./Components/Summary";
 import Expenses from "./Components/Expenses";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      departDate: new Date().setHours(6, 0),
-      arrivalDate: new Date().setHours(18, 0),
+      departDate: new Date().setHours(6, 0, 0),
+      arrivalDate: new Date().setHours(18, 0, 0),
       name: "",
       overNight: "",
       days: 0,
@@ -50,14 +51,14 @@ class App extends Component {
     }
 
     const days = arrivalDate.diff(departDate, "days");
-    const hours = arrivalDate.diff(departDate, "hours") - 24 * days;
-    const overNight = days > 0 ? "Ja" : "Nei";
+    // Use minutes instead of hours to avoid rounding errors and increase accuracy.
+    const hours = Math.ceil(arrivalDate.diff(departDate, "minutes") / 60) - 24 * days;
 
     let perDiemDays = this.state.perDiemDays.slice(0, days + 1);
     let singleDayPerDiem = 0;
 
-    if (hours >= 6) singleDayPerDiem = singleDayPerDiemShort;
-    if (hours >= 12) singleDayPerDiem = singleDayPerDiemLong;
+    if (hours >= 6 && hours <= 12) singleDayPerDiem = singleDayPerDiemLong;
+    if (hours > 12) singleDayPerDiem = dayPerDiem;
 
     if (perDiemDays.length === 0) {
       perDiemDays.push({
