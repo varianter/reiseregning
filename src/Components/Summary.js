@@ -9,20 +9,18 @@ class Summary extends React.Component {
     });
     let expenseRows = [];
 
-    for (let key in this.props.vatList) {
-      if (this.props.vatList.hasOwnProperty(key)) {
-        expenseRows.push(
-          <tr>
-            <td>Utlegg</td>
-            <td> </td>
-            <td className="numeric"> {key} </td>
-            <td className="numeric">
-              {formatter.format(this.props.vatList[key])}
-            </td>
-          </tr>
-        );
-      }
-    }
+    Object.entries(this.props.vatList).forEach(([vatKey, value]) => {
+      expenseRows.push(
+        <tr key={vatKey}>
+          <td>Utlegg</td>
+          <td> </td>
+          <td className="numeric"> {vatKey} </td>
+          <td className="numeric">
+            {formatter.format(value)}
+          </td>
+        </tr>
+      );
+    });
 
     return (
       <div>

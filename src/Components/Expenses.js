@@ -96,7 +96,7 @@ class Expenses extends React.Component {
       if (element['need-route']) {
         
         route = 
-        <span className>
+        <span>
           <button className="print-hidden"
               type="checkbox"
               onClick={() => this.handleButtonClick(i)}>
