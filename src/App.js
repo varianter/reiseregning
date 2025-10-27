@@ -11,11 +11,12 @@ class App extends Component {
     super(props);
     this.state = {
       departDate: new Date().setHours(6, 0),
-      arrivalDate: new Date().setHours(18, 0),
+      arivalDate: new Date().setHours(18, 0),
       name: "",
       overNight: "",
       days: 0,
       hours: 0,
+      usePerDiem: false, 
       perDiemDays: [],
       totalDiem: 0,
       mileage: { mileage: 0, rate: 3.5, amount: 0, passenger: false },
@@ -36,21 +37,22 @@ class App extends Component {
     this.calculate();
   }
 
+
   calculate() {
-    const dayPerDiem = 940;
-    const singleDayPerDiemShort = 369;
-    const singleDayPerDiemLong = 686;
+    const dayPerDiem = 977;
+    const singleDayPerDiemShort = 384;
+    const singleDayPerDiemLong = 713;
 
     const departDate = moment(this.state.departDate);
-    let arrivalDate = moment(this.state.arrivalDate);
+    let arivalDate = moment(this.state.arivalDate);
 
-    if (this.state.departDate > this.state.arrivalDate) {
-      arrivalDate = moment(this.state.departDate);
-      this.setState({ arrivalDate: this.state.departDate });
+    if (this.state.departDate > this.state.arivalDate) {
+      arivalDate = moment(this.state.departDate);
+      this.setState({ arivalDate: this.state.departDate });
     }
 
-    const days = arrivalDate.diff(departDate, "days");
-    const hours = arrivalDate.diff(departDate, "hours") - 24 * days;
+    const days = arivalDate.diff(departDate, "days");
+    const hours = arivalDate.diff(departDate, "hours") - 24 * days;
     const overNight = days > 0 ? "Ja" : "Nei";
 
     let perDiemDays = this.state.perDiemDays.slice(0, days + 1);
@@ -92,17 +94,24 @@ class App extends Component {
 
   calculateDiems() {
     let sum = 0;
-
     let perDiemDays = this.state.perDiemDays;
-    perDiemDays.forEach((element) => {
-      element.actualDiems = element.perDiem;
-      if (element.breakfast) element.actualDiems -= element.perDiem * 0.2;
-      if (element.lunch) element.actualDiems -= element.perDiem * 0.3;
-      if (element.dinner) element.actualDiems -= element.perDiem * 0.5;
-      sum += element.actualDiems;
-    });
+    if(this.state.usePerDiem){
+      perDiemDays.forEach((element) => {
+        element.actualDiems = element.perDiem;
+        if (element.breakfast) element.actualDiems -= element.perDiem * 0.2;
+        if (element.lunch) element.actualDiems -= element.perDiem * 0.3;
+        if (element.dinner) element.actualDiems -= element.perDiem * 0.5;
+        sum += element.actualDiems;
+      });
+    }
     this.setState({ perDiemDays, totalDiem: sum });
   }
+
+  handleUsePerDiemChange = (e) => {
+    this.setState({ usePerDiem: e.target.checked }, this.calculateDiems);
+  };
+
+
 
   handleDetailsChange(name, value) {
     this.setState(
@@ -168,11 +177,13 @@ class App extends Component {
             handleDetailsChange={this.handleDetailsChange}
             departDate={this.state.departDate}
             departTime={this.state.departTime}
-            arrivalDate={this.state.arrivalDate}
-            arrivalTime={this.state.arrivalTime}
-          />
+            arivalDate={this.state.arivalDate}
+            arivalTime={this.state.arivalTime}
+            />
           <Refund
             handleFreeMealChange={this.handleFreeMealChange}
+            handleUsePerDiemChange={this.handleUsePerDiemChange}
+            usePerDiem={this.state.usePerDiem}
             perDiemDays={this.state.perDiemDays}
             totalDiem={this.state.totalDiem}
             days={this.state.days}
@@ -187,7 +198,7 @@ class App extends Component {
             handleExpenseChange={this.handleExpenseChange}
             expenses={this.state.expenses}
             departDate={this.state.departDate}
-            arrivalDate={this.state.arrivalDate}
+            arivalDate={this.state.arivalDate}
           />
           <Summary
             mileage={this.state.mileage.amount}

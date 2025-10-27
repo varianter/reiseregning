@@ -113,6 +113,7 @@ class Expenses extends React.Component {
           <td>
             <DatePicker
               minDate={this.props.departDate}
+              maxDate={this.props.arivalDate}
               placeholderText="Velg dato"
               selected={this.state[i + '-expenseDate']}
               locale="nb"

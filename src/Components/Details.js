@@ -70,13 +70,13 @@ class Details extends React.Component {
             <label>
               <span>Hjemkomstdato:</span>
               <DatePicker
-                selected={this.props.arrivalDate}
+                selected={this.props.arivalDate}
                 showTimeSelect
                 timeFormat="HH:mm"
                 locale="nb"
                 timeCaption="Tid"
                 dateFormat="dd.MM.yyyy HH:mm"
-                onChange={value => this.onDateChange('arrivalDate', value)}
+                onChange={value => this.onDateChange('arivalDate', value)}
                 minDate={this.props.departDate}
               />
             </label>
