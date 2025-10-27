@@ -60,6 +60,13 @@ class Refund extends React.Component {
                 onChange={this.props.handleUsePerDiemChange}
             />
             Bruk diettberegning
+            <span className="tooltip-container">?
+              <span className="tooltip-text">
+                <p>Denne brukes bare <strong>untaksvis</strong>. Ved Variant-interne reiser brukes <strong>ikke</strong> diett. 
+                For kundereiser har vi ofte diett, men da skal vi fortrinnsvis bruke kundens reiseregningsskjema. </p>
+                <p>Untaktsvis har ikke kunde eget skjema eller ønsker ikke å bruke dette, og da kan denne seksjonen benyttes. </p>
+              </span>
+            </span>
           </label>
         </h2>
         {this.props.usePerDiem && (
